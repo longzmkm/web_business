@@ -35,15 +35,15 @@ class CompanyListView(APIView):
 
 
 @api_view(['GET','PUT','DELETS'])
-def company_detail(request,pk):
+def company_detail(request,regNO):
     try:
-        company_item=company.objects.get(pk=pk)
+        company_item=company.objects.filter(regNO=regNO)
     except company.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method=='GET':
-        company_items=company.objects.filter(id=request.GET.get('pk'))
-        serializer=companySerializers(company_item)
+        #company_items=company.objects.filter(regNO=request.GET.get('pk'))
+        serializer=companySerializers(company_item,many=True)
         return Response(serializer.data)
     elif request.method=='PUT':
         serializer=companySerializers(company,request.data)
@@ -52,8 +52,8 @@ def company_detail(request,pk):
             return Response(serializer.data)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    elif request.method=='DELETE':
-        company.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    # elif request.method=='DELETE':
+    #     company.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 
