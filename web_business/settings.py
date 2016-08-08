@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'pymongo',
+#    'mongoengine',
+    'gongshangInfo',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +78,22 @@ WSGI_APPLICATION = 'web_business.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# MONGDB_DATABASE={
+#     'default': {
+#         'name':'back',
+#         'host':'192.168.2.132',
+#         'tz_aware':True,
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gongshanginfo',
+        'USER': 'root',
+        'PASSWORD': '111111',
+        'HOST': '192.168.2.134',
+        'PORT': '3306',
     }
 }
 
@@ -119,3 +135,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# from  mongoengine import connect
+# connect('back',host='192.168.2.132')
